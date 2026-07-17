@@ -176,9 +176,9 @@
 
         /* Loader & Logo SVG Animation */
         #loader {
-            position: fixed; inset: 0; background: #030305; z-index: 10000;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; height: 100dvh; background: #030305; z-index: 10000;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 1s ease, transform 1s ease;
+            transition: opacity 1s ease;
         }
         @keyframes drawStroke { to { stroke-dashoffset: 0; } }
         .draw-path {
@@ -231,8 +231,8 @@
 
     <!-- Cinematic Loader with Horned Monkey SVG -->
     <div id="loader">
-        <div class="relative flex flex-col items-center justify-center w-full h-full px-4">
-            <svg viewBox="0 0 100 100" class="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 text-cyan mb-4 sm:mb-6 z-10 animate-blink mx-auto" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <div class="relative flex flex-col items-center justify-center w-full h-full px-4 overflow-hidden">
+            <svg viewBox="0 0 100 100" class="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 text-cyan mb-6 z-10 animate-blink mx-auto" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <!-- Deer Antlers -->
                 <path class="draw-path" d="M40 32 Q 25 15 15 5 M25 21 L 15 18 M32 29 L 25 25" />
                 <path class="draw-path" d="M60 32 Q 75 15 85 5 M75 21 L 85 18 M68 29 L 75 25" />
@@ -256,8 +256,8 @@
                 <path class="draw-path" d="M 52 47 Q 52 45 54 45 L 72 45 Q 74 45 74 47 L 74 56 Q 74 58 72 58 L 54 58 Q 52 58 52 56 Z" stroke="#ffd700" fill="rgba(255, 215, 0, 0.15)" />
                 <path class="draw-path" d="M 48 48 L 52 48 M 26 48 L 20 45 M 74 48 L 80 45" stroke="#ffd700" />
             </svg>
-            <h2 id="introName" class="font-cosmic font-extrabold text-lg sm:text-2xl md:text-3xl tracking-[0.1em] sm:tracking-[0.15em] text-white opacity-0 transform scale-95 transition-all duration-1000 text-center w-full">HARIVARSHAN K A</h2>
-            <p id="introSub" class="font-mono text-[9px] sm:text-[10px] md:text-xs text-cyan tracking-[0.2em] sm:tracking-[0.3em] uppercase mt-2 sm:mt-3 opacity-0 transition-all duration-1000 delay-300 text-center w-full">Trying to do better.</p>
+            <h2 id="introName" class="font-cosmic font-extrabold text-lg sm:text-2xl md:text-3xl tracking-[0.1em] sm:tracking-[0.15em] text-white opacity-0 transform translate-y-4 transition-all duration-1000 text-center w-full pl-[0.1em]">HARIVARSHAN K A</h2>
+            <p id="introSub" class="font-mono text-[9px] sm:text-[10px] md:text-xs text-cyan tracking-[0.2em] sm:tracking-[0.3em] uppercase mt-2 sm:mt-3 opacity-0 transform translate-y-4 transition-all duration-1000 delay-300 text-center w-full pl-[0.2em]">Trying to do better.</p>
         </div>
     </div>
 
@@ -973,10 +973,10 @@
         </div>
     </section>
 
-    <!-- NEW SECTION: Resume / CV CTA 
+    <!-- NEW SECTION: Resume / CV CTA --
     <section class="py-12 md:py-24 px-4 sm:px-6 relative z-10 border-t border-white/5 bg-gradient-to-b from-transparent to-cyan/5">
         <div class="max-w-4xl mx-auto text-center reveal glass-card p-6 sm:p-12 relative overflow-hidden">
-            <!-- Decorative background elements 
+            <!-- Decorative background elements --
             <div class="absolute -top-10 -right-10 w-32 h-32 bg-cyan/20 blur-[50px] rounded-full pointer-events-none"></div>
             <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-purple/20 blur-[50px] rounded-full pointer-events-none"></div>
             
@@ -1024,13 +1024,12 @@
             const introSub = document.getElementById('introSub');
             
             setTimeout(() => {
-                introName.classList.remove('opacity-0', 'scale-95');
-                introSub.classList.remove('opacity-0');
+                introName.classList.remove('opacity-0', 'translate-y-4');
+                introSub.classList.remove('opacity-0', 'translate-y-4');
             }, 2500);
 
             setTimeout(() => {
                 loader.style.opacity = '0';
-                loader.style.transform = 'translateY(-20px)';
                 setTimeout(() => loader.style.display = 'none', 1000);
             }, 4000);
         });
