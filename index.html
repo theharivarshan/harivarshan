@@ -1,0 +1,1193 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Harivarshan K A - Eco-Tech Engineer & Graphic Designer">
+    <title>Harivarshan K A | Professional Cosmic Portfolio</title>
+    
+    <!-- Premium Font Architecture: Syne for Headers, Outfit for Tech, Manrope for Readability, Bebas Neue for Hero Impact -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Syne:wght@500;700;800&family=Outfit:wght@400;600;700&family=JetBrains+Mono:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js for Architectural Kinetic Particle Wave -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                        tech: ['Outfit', 'sans-serif'],
+                        cosmic: ['Syne', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        hero: ['Bebas Neue', 'sans-serif'],
+                    },
+                    colors: {
+                        void: '#030305',
+                        panel: '#0a0a0f',
+                        cyan: '#00ffa3',   /* Repurposed to Neon Emerald/Mint */
+                        purple: '#ffd700', /* Repurposed to Sunset Gold */
+                        silver: '#94a3b8',
+                        white: '#f8fafc'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #030305;
+            color: #94a3b8;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #030305; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #00ffa3, #ffd700); border-radius: 10px; }
+
+        /* Custom Cursor - Only enabled for devices with a mouse (pointer: fine) */
+        @media (pointer: fine) {
+            body { cursor: none; }
+            .cursor-dot, .cursor-ring {
+                position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+                border-radius: 50%; pointer-events: none; z-index: 99999;
+            }
+            .cursor-dot {
+                width: 6px; height: 6px; background: #00ffa3;
+                transition: width 0.2s, height 0.2s;
+            }
+            .cursor-ring {
+                width: 36px; height: 36px; border: 1px solid rgba(0, 255, 163, 0.4);
+                transition: width 0.3s, height 0.3s, border-color 0.3s;
+            }
+            a:hover ~ .cursor-dot, button:hover ~ .cursor-dot, .interactive:hover ~ .cursor-dot {
+                width: 45px; height: 45px; background: rgba(0, 255, 163, 0.1); backdrop-filter: blur(2px);
+            }
+            a:hover ~ .cursor-ring, button:hover ~ .cursor-ring, .interactive:hover ~ .cursor-ring {
+                width: 55px; height: 55px; border-color: #00ffa3;
+            }
+        }
+        @media (pointer: coarse) {
+            .cursor-dot, .cursor-ring { display: none !important; }
+        }
+
+        /* 3D Background Engine */
+        #kinetic-landscape {
+            position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.6;
+        }
+
+        /* Universal Premium Glass Card with GLOSSY HOVER */
+        .glass-card {
+            background: rgba(10, 10, 15, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* The Sweeping Glossy Light Reflection */
+        .glass-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+            transform: skewX(-25deg);
+            transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            z-index: 10;
+        }
+        .glass-card:hover::after {
+            left: 150%;
+        }
+
+        /* Hover Animation for Cards */
+        .glass-card.interactive-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 255, 163, 0.3);
+            box-shadow: 0 15px 35px -10px rgba(0, 255, 163, 0.15), inset 0 0 20px rgba(0, 255, 163, 0.05);
+            background: rgba(15, 15, 20, 0.8);
+        }
+        
+        .glass-card.interactive-card.purple-hover:hover {
+            border-color: rgba(255, 215, 0, 0.3);
+            box-shadow: 0 15px 35px -10px rgba(255, 215, 0, 0.15), inset 0 0 20px rgba(255, 215, 0, 0.05);
+        }
+
+        /* Icon Animation on Card Hover */
+        .glass-card:hover .card-icon {
+            transform: scale(1.15) rotate(-5deg);
+        }
+        .card-icon {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Image Achievement Card Hover */
+        .img-card img {
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .img-card:hover img {
+            transform: scale(1.08);
+        }
+
+        /* Text Gradients */
+        .text-neon {
+            background: linear-gradient(135deg, #fff, #00ffa3);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .text-plasma {
+            background: linear-gradient(135deg, #fff, #ffd700);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* Animated Holographic Gradient for Titles (Mint -> Gold -> Orange) */
+        .animate-gradient-text {
+            background: linear-gradient(to right, #00ffa3, #ffd700, #00ffa3);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: moveGradient 4s linear infinite;
+        }
+        @keyframes moveGradient {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* Smooth Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Loader & Logo SVG Animation */
+        #loader {
+            position: fixed; inset: 0; background: #030305; z-index: 10000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        @keyframes drawStroke { to { stroke-dashoffset: 0; } }
+        .draw-path {
+            stroke-dasharray: 600; stroke-dashoffset: 600;
+            animation: drawStroke 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Loading Animation Blink */
+        @keyframes blink-fade {
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 15px rgba(0, 255, 163, 0.4)); }
+            50% { opacity: 0.3; filter: drop-shadow(0 0 2px rgba(0, 255, 163, 0.1)); }
+        }
+        .animate-blink {
+            animation: blink-fade 1.5s ease-in-out infinite;
+        }
+
+        /* List Item Hover Dynamics */
+        .list-hover-item {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .list-hover-item:hover {
+            transform: translateX(8px);
+            background-color: rgba(255,255,255,0.02);
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; display: block;}
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0, 255, 163, 0.3); border-radius: 4px; }
+
+        /* Infinite Scrolling Highlights Slider */
+        .highlights-mask {
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .scroll-track {
+            display: flex;
+            width: max-content;
+            animation: scroll 40s linear infinite;
+        }
+        .scroll-track:hover {
+            animation-play-state: paused;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } 
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyan selection:text-black">
+
+    <!-- Cinematic Loader with Horned Monkey SVG -->
+    <div id="loader">
+        <div class="relative flex flex-col items-center justify-center mb-4 w-full h-full">
+            <svg viewBox="0 0 100 100" class="w-32 h-32 md:w-40 md:h-40 text-cyan mb-6 z-10 animate-blink" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <!-- Tech Antlers -->
+                <path class="draw-path" d="M35,50 L20,25 L25,5 M20,25 L5,20 M23,15 L10,5" />
+                <path class="draw-path" d="M65,50 L80,25 L75,5 M80,25 L95,20 M77,15 L90,5" />
+                <!-- Primate Head Base & Wide Ears -->
+                <path class="draw-path" d="M40,45 L60,45 L80,60 L70,85 L50,95 L30,85 L20,60 Z" />
+                <path class="draw-path" d="M20,60 L10,65 L22,75 M80,60 L90,65 L78,75" />
+                <!-- Cyber Primate Face (V-Brow, Eyes, Protruding Muzzle) -->
+                <path class="draw-path" d="M20,60 L50,70 L80,60" />
+                <path class="draw-path" d="M32,68 L42,72 M68,68 L58,72" />
+                <path class="draw-path" d="M35,80 L65,80 L55,90 L45,90 Z" />
+            </svg>
+            <h2 id="introName" class="font-cosmic font-extrabold text-2xl md:text-3xl tracking-[0.15em] text-white opacity-0 transform scale-95 transition-all duration-1000">HARIVARSHAN K A</h2>
+            <p id="introSub" class="font-mono text-[10px] md:text-xs text-cyan tracking-[0.3em] uppercase mt-3 opacity-0 transition-all duration-1000 delay-300 text-center px-4">Trying to do better.</p>
+        </div>
+    </div>
+
+    <!-- Custom Cursors -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- 3D Kinetic Terrain Engine -->
+    <canvas id="kinetic-landscape"></canvas>
+
+    <!-- Top Navigation -->
+    <nav class="fixed top-0 w-full z-50 py-4 px-6 bg-[#030305]/80 backdrop-blur-md border-b border-white/5 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3 interactive">
+                <!-- Geometric Primate Logo -->
+                <svg viewBox="0 0 100 100" class="w-8 h-8 text-cyan" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <!-- Tech Antlers -->
+                    <path d="M35,50 L20,25 L25,5 M20,25 L5,20 M23,15 L10,5" />
+                    <path d="M65,50 L80,25 L75,5 M80,25 L95,20 M77,15 L90,5" />
+                    <!-- Primate Head Base & Wide Ears -->
+                    <path d="M40,45 L60,45 L80,60 L70,85 L50,95 L30,85 L20,60 Z" />
+                    <path d="M20,60 L10,65 L22,75 M80,60 L90,65 L78,75" />
+                    <!-- Cyber Primate Face (V-Brow, Eyes, Protruding Muzzle) -->
+                    <path d="M20,60 L50,70 L80,60" />
+                    <path d="M32,68 L42,72 M68,68 L58,72" />
+                    <path d="M35,80 L65,80 L55,90 L45,90 Z" />
+                </svg>
+                <div class="font-cosmic font-bold text-xl text-white tracking-widest hover:text-cyan transition-colors">H K A</div>
+            </div>
+            
+            <div class="hidden md:flex gap-8 font-mono text-[10px] uppercase tracking-[0.2em] text-silver">
+                <a href="#home" class="hover:text-cyan transition-colors interactive">Origin</a>
+                <a href="#about" class="hover:text-cyan transition-colors interactive">About</a>
+                <a href="#pillars" class="hover:text-cyan transition-colors interactive">The 4 Pillars</a>
+                <a href="#experience" class="hover:text-cyan transition-colors interactive">Experience</a>
+                <a href="#education" class="hover:text-cyan transition-colors interactive">Education</a>
+                <a href="#portfolio" class="hover:text-cyan transition-colors interactive">Portfolio</a>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="relative min-h-screen flex flex-col justify-center px-4 sm:px-12 pt-24 pb-12 md:pt-32 md:pb-20">
+        <div class="max-w-7xl mx-auto w-full z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Text Content -->
+            <div class="lg:col-span-7">
+                <!-- Status Badge -->
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-cyan/30 bg-cyan/5 mb-8 reveal">
+                    <div class="w-2 h-2 rounded-full bg-cyan animate-pulse shadow-[0_0_8px_#00ffa3]"></div>
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-cyan">System Online // Designer & Engineer</span>
+                </div>
+
+                <h1 class="font-cosmic font-extrabold text-2xl sm:text-3xl md:text-5xl lg:text-[3.5rem] xl:text-6xl leading-[1.1] tracking-tight mb-4 whitespace-nowrap reveal">
+                    <span class="block drop-shadow-[0_0_15px_rgba(0,255,163,0.3)] animate-gradient-text pb-1">HARIVARSHAN</span>
+                    <span class="block drop-shadow-[0_0_15px_rgba(0,255,163,0.3)] animate-gradient-text" style="animation-delay: -2s;">K A</span>
+                </h1>
+                
+                <h2 class="font-tech text-lg sm:text-2xl text-silver tracking-widest uppercase mb-8 reveal min-h-[32px] md:min-h-[40px] flex items-center">
+                    <span id="typewriter-text"></span><span class="text-cyan text-2xl font-light ml-1 animate-[pulse_0.8s_ease-in-out_infinite]">|</span>
+                </h2>
+
+                <p class="font-sans text-silver text-base font-light leading-relaxed mb-10 reveal max-w-xl">
+                    Pursuing M.Tech in Green Energy Technology. Fusing the solid infrastructure of Civil Engineering, the fluid mechanics of Sustainable Energy, and the aesthetic geometry of Graphic Design into a singular professional blueprint.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 reveal">
+                    <a href="https://www.linkedin.com/in/theharivarshan/" target="_blank" class="glass-card interactive px-6 py-4 sm:py-3 font-mono text-[10px] uppercase tracking-widest text-white hover:text-cyan border border-white/10 hover:border-cyan transition-all flex items-center justify-center gap-2 group w-full sm:w-auto">
+                        Initialize LinkedIn <i class="fa-solid fa-arrow-right -rotate-45 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                    </a>
+                    <a href="https://www.behance.net/harivarshan" target="_blank" class="glass-card interactive px-6 py-4 sm:py-3 font-mono text-[10px] uppercase tracking-widest text-white hover:text-purple border border-white/10 hover:border-purple transition-all flex items-center justify-center gap-2 group w-full sm:w-auto">
+                        Visit Behance <i class="fa-solid fa-arrow-right -rotate-45 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Profile Image -->
+            <div class="lg:col-span-5 flex justify-center lg:justify-end reveal mt-8 lg:mt-0">
+                <div class="relative w-64 h-64 sm:w-72 sm:h-72 md:w-[400px] md:h-[400px] flex items-center justify-center">
+                    <!-- Concentric Tech Rings -->
+                    <div class="absolute inset-0 rounded-full border border-cyan/20 animate-[spin_40s_linear_infinite]"></div>
+                    <div class="absolute inset-6 rounded-full border border-dashed border-purple/30 animate-[spin_25s_linear_infinite_reverse]"></div>
+                    
+                    <!-- Main Image Frame -->
+                    <div class="w-52 h-52 sm:w-60 sm:h-60 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-cyan/40 relative shadow-[0_0_40px_rgba(0,255,163,0.15)] bg-void z-10">
+                        <img src="Images/1758047767297.jpg" alt="Harivarshan K A" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110 interactive" onerror="this.src='https://placehold.co/600x600/030305/00ffa3?text=HK+A'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- LIVE HIGHLIGHTS SLIDER -->
+    <section id="highlights" class="py-16 md:py-24 px-4 sm:px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <div class="inline-flex items-center gap-2 mb-2 justify-center">
+                    <div class="w-2 h-2 rounded-full bg-cyan animate-pulse shadow-[0_0_8px_#00ffa3]"></div>
+                    <span class="font-mono text-xs text-cyan uppercase tracking-[0.3em]">ACTIVE DEPLOYMENTS</span>
+                </div>
+                <h2 class="font-cosmic font-bold text-3xl sm:text-5xl text-white">LIVE <span class="text-neon">HIGHLIGHTS</span></h2>
+            </div>
+        </div>
+
+        <div class="overflow-hidden highlights-mask max-w-7xl mx-auto w-full">
+            <!-- The track is 2x wide and duplicated for an infinite, seamless loop -->
+            <div class="scroll-track gap-4 sm:gap-6 py-2 px-2">
+                
+                <!-- === GROUP 1 === -->
+                <div class="flex gap-4 sm:gap-6 flex-nowrap">
+                    <!-- Highlight 1 -->
+                    <div class="glass-card interactive-card w-64 sm:w-80 flex-shrink-0 p-5 group">
+                        <div class="flex justify-between items-start mb-3">
+                            <i class="fa-solid fa-medal text-cyan text-lg group-hover:scale-110 transition-transform"></i>
+                            <span class="font-mono text-[9px] text-silver bg-white/5 px-2 py-1 rounded">Exam 2026</span>
+                        </div>
+                        <h4 class="font-tech font-bold text-white text-base mb-1">Top Performer GO4Youth</h4>
+                        <p class="font-sans text-xs text-silver">Recognized nationally for outstanding ecological knowledge and sustainability.</p>
+                    </div>
+                    <!-- Highlight 2 -->
+                    <div class="glass-card interactive-card purple-hover w-64 sm:w-80 flex-shrink-0 p-5 group">
+                        <div class="flex justify-between items-start mb-3">
+                            <i class="fa-solid fa-flask text-purple text-lg group-hover:scale-110 transition-transform"></i>
+                            <span class="font-mono text-[9px] text-silver bg-white/5 px-2 py-1 rounded">IIT Madras</span>
+                        </div>
+                        <h4 class="font-tech font-bold text-white text-base mb-1">Summer Research Intern</h4>
+                        <p class="font-sans text-xs text-silver">Technical analysis of hydrogen vs. methane storage in salt caverns.</p>
+                    </div>
+                    <!-- Highlight 3 -->
+                    <div class="glass-card interactive-card w-64 sm:w-80 flex-shrink-0 p-5 group">
+                        <div class="flex justify-between items-start mb-3">
+                            <i class="fa-solid fa-satellite text-cyan text-lg group-hover:scale-110 transition-transform"></i>
+                            <span class="font-mono text-[9px] text-silver bg-white/5 px-2 py-1 rounded">Def-Space '26</span>
+                        </div>
+                        <h4 class="font-tech font-bold text-white text-base mb-1">Summer Intern</h4>
+                        <p class="font-sans text-xs text-silver">Aerospace and education research at Bharat Space Education Research Centre.</p>
+                    </div>
+                    <!-- Highlight 4 -->
+                    <div class="glass-card interactive-card purple-hover w-64 sm:w-80 flex-shrink-0 p-5 group">
+                        <div class="flex justify-between items-start mb-3">
+                            <i class="fa-solid fa-pen-nib text-purple text-lg group-hover:scale-110 transition-transform"></i>
+                            <span class="font-mono text-[9px] text-silver bg-white/5 px-2 py-1 rounded">harrywhite</span>
+                        </div>
+                        <h4 class="font-tech font-bold text-white text-base mb-1">Brand Architect</h4>
+                        <p class="font-sans text-xs text-silver">Directing digital aesthetics, vector interfaces, and premium brand identities.</p>
+                    </div>
+                </div>
+
+                <!-- === GROUP 2 (Exact Duplicate for Infinite Loop) === -->
+                <div class="flex gap-4 sm:gap-6 flex-nowrap">
+                    <!-- Highlight 1 -->
+                    <div class="glass-card interactive-card w-64 sm:w-80 flex-shrink-0 p-5 group">
+                        <div class="flex justify-between items-start mb-3">
+                            <i class="fa-solid fa-medal text-cyan text-lg group-hover:scale-110 transition-transform"></i>
+                            <span class="font-mono text-[9px] text-silver bg-white/5 px-2 py-1 rounded">Exam 2026</span>
+                        </div>
+                        <h4 class="font-tech font-bold text-white text-base mb-1">Top Performer GO4Youth</h4>
+                        <p class="font-sans text-xs text-silver">Recognized nationally for outstanding ecological knowledge and sustainability.</p>
+                    </div>
+                    <!-- Highlight 2 -->
+                    <div class="glass-card interactive-card purple-hover w-64 sm:w-80 flex-shrink-0 p-5 group">
+                        <div class="flex justify-between items-start mb-3">
+                            <i class="fa-solid fa-flask text-purple text-lg group-hover:scale-110 transition-transform"></i>
+                            <span class="font-mono text-[9px] text-silver bg-white/5 px-2 py-1 rounded">IIT Madras</span>
+                        </div>
+                        <h4 class="font-tech font-bold text-white text-base mb-1">Summer Research Intern</h4>
+                        <p class="font-sans text-xs text-silver">Technical analysis of hydrogen vs. methane storage in salt caverns.</p>
+                    </div>
+                    <!-- Highlight 3 -->
+                    <div class="glass-card interactive-card w-64 sm:w-80 flex-shrink-0 p-5 group">
+                        <div class="flex justify-between items-start mb-3">
+                            <i class="fa-solid fa-satellite text-cyan text-lg group-hover:scale-110 transition-transform"></i>
+                            <span class="font-mono text-[9px] text-silver bg-white/5 px-2 py-1 rounded">Def-Space '26</span>
+                        </div>
+                        <h4 class="font-tech font-bold text-white text-base mb-1">Summer Intern</h4>
+                        <p class="font-sans text-xs text-silver">Aerospace and education research at Bharat Space Education Research Centre.</p>
+                    </div>
+                    <!-- Highlight 4 -->
+                    <div class="glass-card interactive-card purple-hover w-64 sm:w-80 flex-shrink-0 p-5 group">
+                        <div class="flex justify-between items-start mb-3">
+                            <i class="fa-solid fa-pen-nib text-purple text-lg group-hover:scale-110 transition-transform"></i>
+                            <span class="font-mono text-[9px] text-silver bg-white/5 px-2 py-1 rounded">harrywhite</span>
+                        </div>
+                        <h4 class="font-tech font-bold text-white text-base mb-1">Brand Architect</h4>
+                        <p class="font-sans text-xs text-silver">Directing digital aesthetics, vector interfaces, and premium brand identities.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW ABOUT SECTION -->
+    <section id="about" class="py-16 md:py-24 px-4 sm:px-12 relative z-10 border-t border-white/5 bg-gradient-to-b from-transparent to-cyan/5">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <span class="font-mono text-xs text-cyan uppercase tracking-[0.3em] block mb-2">SYSTEM OPERATOR</span>
+                <h2 class="font-cosmic font-bold text-3xl sm:text-5xl text-white">ABOUT <span class="text-plasma">ME</span></h2>
+            </div>
+            
+            <div class="glass-card p-8 md:p-12 reveal relative overflow-hidden">
+                <!-- Internal Glow Reflection -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-cyan/10 blur-[80px] rounded-full pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-purple/10 blur-[80px] rounded-full pointer-events-none"></div>
+                
+                <div class="relative z-10 text-silver text-sm md:text-base leading-relaxed space-y-6 font-sans">
+                    <p>
+                        I'm <strong class="text-white">Harivarshan K A</strong>, currently pursuing an <strong class="text-purple">M.Tech in Green Energy Technology</strong> as an SAF Scholar at Pondicherry University, after earning my <strong class="text-cyan">B.Tech in Civil Engineering</strong> with a CGPA of 8.06 from Puducherry Technological University. Recently recognized as a <strong class="text-white">Top Performer in the GO4Youth 2026 Exam</strong>, I uniquely combine sustainable engineering, advanced research, and creative design to construct comprehensive solutions.
+                    </p>
+                    <p>
+                        My engineering foundation was built through rigorous early roles at <span class="text-white font-medium">CMRL, PSCDL, and PWD</span>, alongside my B.Tech thesis on eco-friendly water treatment using natural coagulants. Today, my focus has scaled to macro-level sustainability and aerospace systems. I am currently a Summer Research Intern at the <strong class="text-cyan">Energy Consortium, IIT Madras</strong>, analyzing the thermodynamics of large-scale hydrogen storage in salt caverns, and a <strong class="text-purple">Def-Space Intern</strong> at the Bharat Space Education Research Centre. I also recently developed S.A.F.E., a browser-based sustainability assessment platform.
+                    </p>
+                    <p>
+                        Beyond traditional engineering, I am the founder and Brand Architect of <strong class="text-cyan">harrywhite</strong>, a design firm dedicated to premium visual identities and vector interfaces, and a founding member of the <strong class="text-purple">UNITY Foundation</strong>, which focuses on empowering youth. I thrive on bringing together deep-tech, aesthetic geometry, and green energy to make a tangible, positive impact.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pillars" class="py-16 md:py-24 px-4 sm:px-12 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <span class="font-mono text-xs text-cyan uppercase tracking-[0.3em] block mb-2">STRUCTURAL FOUNDATION</span>
+                <h2 class="font-cosmic font-bold text-3xl sm:text-5xl text-white">THE FOUR <span class="text-neon">PILLARS</span></h2>
+            </div>
+            
+            <!-- Perfect 4-Column Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Pillar 1: Buildings (Civil) -->
+                <div class="glass-card interactive-card p-8 reveal">
+                    <div class="w-14 h-14 rounded-full bg-cyan/10 border border-cyan/20 flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-building text-2xl text-cyan card-icon"></i>
+                    </div>
+                    <h3 class="font-tech text-xl font-bold text-white mb-2">Infrastructure</h3>
+                    <p class="font-mono text-[9px] text-silver uppercase mb-4 tracking-wider">Civil Engineering Base</p>
+                    <p class="font-sans text-xs leading-relaxed text-silver">Calculating structural mechanics, managing fluid dynamics, and planning smart city concrete blueprints.</p>
+                </div>
+
+                <!-- Pillar 2: Green Energy -->
+                <div class="glass-card interactive-card purple-hover p-8 reveal" style="transition-delay: 0.1s;">
+                    <div class="w-14 h-14 rounded-full bg-purple/10 border border-purple/20 flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-wind text-2xl text-purple card-icon"></i>
+                    </div>
+                    <h3 class="font-tech text-xl font-bold text-white mb-2">Kinetic Energy</h3>
+                    <p class="font-mono text-[9px] text-silver uppercase mb-4 tracking-wider">M.Tech Sustainability</p>
+                    <p class="font-sans text-xs leading-relaxed text-silver">Modeling zero-carbon grids, aerodynamic wind flows, and high-efficiency photovoltaic integration.</p>
+                </div>
+
+                <!-- Pillar 3: Deers / Aesthetics -->
+                <div class="glass-card interactive-card p-8 reveal" style="transition-delay: 0.2s;">
+                    <div class="w-14 h-14 rounded-full bg-cyan/10 border border-cyan/20 flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-bezier-curve text-2xl text-cyan card-icon"></i>
+                    </div>
+                    <h3 class="font-tech text-xl font-bold text-white mb-2">Aesthetic Geometry</h3>
+                    <p class="font-mono text-[9px] text-silver uppercase mb-4 tracking-wider">Graphic Architecture</p>
+                    <p class="font-sans text-xs leading-relaxed text-silver">Crafting majestic brand identities, precise UI/UX vector interfaces, and global visual campaigns.</p>
+                </div>
+
+                <!-- Pillar 4: Rockets / Ambition -->
+                <div class="glass-card interactive-card purple-hover p-8 reveal" style="transition-delay: 0.3s;">
+                    <div class="w-14 h-14 rounded-full bg-purple/10 border border-purple/20 flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-rocket text-2xl text-purple card-icon"></i>
+                    </div>
+                    <h3 class="font-tech text-xl font-bold text-white mb-2">Upward Trajectory</h3>
+                    <p class="font-mono text-[9px] text-silver uppercase mb-4 tracking-wider">Def-Space Ambition</p>
+                    <p class="font-sans text-xs leading-relaxed text-silver">Executing aerospace defense telemetry logistics and constantly aiming for the highest tier of innovation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="py-16 md:py-24 px-4 sm:px-6 relative z-10">
+        <div class="max-w-5xl mx-auto relative">
+            <div class="text-center mb-20 reveal">
+                <span class="font-mono text-xs text-purple uppercase tracking-[0.3em] block mb-2">CHRONOLOGICAL LOGS</span>
+                <h2 class="font-cosmic font-bold text-3xl sm:text-5xl text-white">PROFESSIONAL <span class="text-plasma">EXPERIENCE</span></h2>
+            </div>
+
+            <!-- Professional Timeline -->
+            <div class="relative space-y-12">
+                <!-- Responsive Continuous Line (Left on mobile, Center on desktop) -->
+                <div class="absolute top-0 bottom-0 left-[10px] md:left-1/2 w-[2px] bg-gradient-to-b from-[#00ffa3] via-[#ffd700] to-transparent md:-translate-x-1/2 opacity-40 z-0 rounded-full"></div>
+
+                <!-- Experience Item 1 -->
+                <div class="relative md:flex md:justify-between md:items-center w-full reveal group">
+                    <div class="absolute left-[11px] md:left-1/2 top-6 md:top-1/2 w-4 h-4 bg-void border-2 border-cyan rounded-full -translate-x-1/2 md:-translate-y-1/2 z-10 transition-all group-hover:scale-150 group-hover:bg-cyan group-hover:shadow-[0_0_15px_#00ffa3]"></div>
+                    <div class="pl-10 md:pl-0 md:w-[45%] md:pr-10 text-left md:text-right mb-4 md:mb-0 max-w-full">
+                        <span class="font-mono text-[10px] text-cyan tracking-widest uppercase block mb-2">Summer 2026</span>
+                        <h4 class="font-tech font-extrabold text-2xl md:text-3xl animate-gradient-text drop-shadow-md leading-tight">Summer Research Intern</h4>
+                        <p class="font-mono text-[10px] text-silver mt-2">Energy Consortium, IIT Madras</p>
+                    </div>
+                    <div class="pl-10 md:pl-0 md:w-[45%]">
+                        <div class="glass-card interactive-card p-6 md:p-8">
+                            <p class="font-sans text-sm text-silver leading-relaxed">Conducted comprehensive technical analysis on Hydrogen Storage in salt caverns in comparison with methane, evaluating thermodynamic properties and feasibility for large-scale sustainable energy infrastructure.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Item 2 -->
+                <div class="relative md:flex md:justify-between md:items-center md:flex-row-reverse w-full reveal group">
+                    <div class="absolute left-[11px] md:left-1/2 top-6 md:top-1/2 w-4 h-4 bg-void border-2 border-purple rounded-full -translate-x-1/2 md:-translate-y-1/2 z-10 transition-all group-hover:scale-150 group-hover:bg-purple group-hover:shadow-[0_0_15px_#ffd700]"></div>
+                    <div class="pl-10 md:pl-0 md:w-[45%] md:pl-10 text-left mb-4 md:mb-0 max-w-full">
+                        <span class="font-mono text-[10px] text-purple tracking-widest uppercase block mb-2">Summer 2026</span>
+                        <h4 class="font-tech font-extrabold text-2xl md:text-3xl animate-gradient-text drop-shadow-md leading-tight" style="animation-delay: 0.5s;">Def-Space Summer Intern</h4>
+                        <p class="font-mono text-[10px] text-silver mt-2">Bharat Space Education Research Centre</p>
+                    </div>
+                    <div class="pl-10 md:pl-0 md:w-[45%]">
+                        <div class="glass-card interactive-card purple-hover p-6 md:p-8">
+                            <p class="font-sans text-sm text-silver leading-relaxed">Engaged in space education research, focusing on aerospace defense telemetry logistics and modeling advanced educational platforms.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Item 3 -->
+                <div class="relative md:flex md:justify-between md:items-center w-full reveal group">
+                    <div class="absolute left-[11px] md:left-1/2 top-6 md:top-1/2 w-4 h-4 bg-void border-2 border-cyan rounded-full -translate-x-1/2 md:-translate-y-1/2 z-10 transition-all group-hover:scale-150 group-hover:bg-cyan group-hover:shadow-[0_0_15px_#00ffa3]"></div>
+                    <div class="pl-10 md:pl-0 md:w-[45%] md:pr-10 text-left md:text-right mb-4 md:mb-0 max-w-full break-words">
+                        <span class="font-mono text-[10px] text-cyan tracking-widest uppercase block mb-2">Jun 2024 — Present</span>
+                        <h4 class="font-tech font-extrabold text-2xl md:text-3xl animate-gradient-text drop-shadow-md leading-tight" style="animation-delay: 1s;">Founder & Proprietor</h4>
+                        <p class="font-mono text-[10px] text-silver mt-2">harrywhite Design Agency</p>
+                    </div>
+                    <div class="pl-10 md:pl-0 md:w-[45%]">
+                        <div class="glass-card interactive-card p-6 md:p-8">
+                            <p class="font-sans text-sm text-silver leading-relaxed">Directing brand architectures, vector interfaces, and custom visual designs making high-quality aesthetics accessible globally.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Item 4 -->
+                <div class="relative md:flex md:justify-between md:items-center md:flex-row-reverse w-full reveal group">
+                    <div class="absolute left-[11px] md:left-1/2 top-6 md:top-1/2 w-4 h-4 bg-void border-2 border-purple rounded-full -translate-x-1/2 md:-translate-y-1/2 z-10 transition-all group-hover:scale-150 group-hover:bg-purple group-hover:shadow-[0_0_15px_#ffd700]"></div>
+                    <div class="pl-10 md:pl-0 md:w-[45%] md:pl-10 text-left mb-4 md:mb-0 max-w-full break-words">
+                        <span class="font-mono text-[10px] text-purple tracking-widest uppercase block mb-2">Sep 2023 — Present</span>
+                        <h4 class="font-tech font-extrabold text-2xl md:text-3xl animate-gradient-text drop-shadow-md leading-tight" style="animation-delay: 1.5s;">Organizing Secretary</h4>
+                        <p class="font-mono text-[10px] text-silver mt-2">UNITY Foundation</p>
+                    </div>
+                    <div class="pl-10 md:pl-0 md:w-[45%]">
+                        <div class="glass-card interactive-card purple-hover p-6 md:p-8">
+                            <p class="font-sans text-sm text-silver leading-relaxed">Founding member managing digital marketing, event planning, and organizational leadership to empower youth.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Experience Item 5 -->
+                <div class="relative md:flex md:justify-between md:items-center w-full reveal group">
+                    <div class="absolute left-[11px] md:left-1/2 top-6 md:top-1/2 w-4 h-4 bg-void border-2 border-cyan rounded-full -translate-x-1/2 md:-translate-y-1/2 z-10 transition-all group-hover:scale-150 group-hover:bg-cyan group-hover:shadow-[0_0_15px_#00ffa3]"></div>
+                    <div class="pl-10 md:pl-0 md:w-[45%] md:pr-10 text-left md:text-right mb-4 md:mb-0 max-w-full break-words">
+                        <span class="font-mono text-[10px] text-cyan tracking-widest uppercase block mb-2">Jun 2023 — Jul 2023</span>
+                        <h4 class="font-tech font-extrabold text-2xl md:text-3xl animate-gradient-text drop-shadow-md leading-tight" style="animation-delay: 2s;">Graphic Design Intern</h4>
+                        <p class="font-mono text-[10px] text-silver mt-2">Techy Geeks</p>
+                    </div>
+                    <div class="pl-10 md:pl-0 md:w-[45%]">
+                        <div class="glass-card interactive-card p-6 md:p-8">
+                            <p class="font-sans text-sm text-silver leading-relaxed">Designed impactful digital creatives and marketing assets for TechyGeeks, blending branding and visual storytelling.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Item 6 -->
+                <div class="relative md:flex md:justify-between md:items-center md:flex-row-reverse w-full reveal group">
+                    <div class="absolute left-[11px] md:left-1/2 top-6 md:top-1/2 w-4 h-4 bg-void border-2 border-purple rounded-full -translate-x-1/2 md:-translate-y-1/2 z-10 transition-all group-hover:scale-150 group-hover:bg-purple group-hover:shadow-[0_0_15px_#ffd700]"></div>
+                    <div class="pl-10 md:pl-0 md:w-[45%] md:pl-10 text-left mb-4 md:mb-0 max-w-full break-words">
+                        <span class="font-mono text-[10px] text-purple tracking-widest uppercase block mb-2">2 Weeks Each</span>
+                        <h4 class="font-tech font-extrabold text-2xl md:text-3xl animate-gradient-text drop-shadow-md leading-tight" style="animation-delay: 2.5s;">Civil Eng. Internships</h4>
+                        <p class="font-mono text-[10px] text-silver mt-2">CMRL | PSCDL | PWD</p>
+                    </div>
+                    <div class="pl-10 md:pl-0 md:w-[45%]">
+                        <div class="glass-card interactive-card purple-hover p-6 md:p-8">
+                            <p class="font-sans text-sm text-silver leading-relaxed">Gained hands-on practical experience in urban infrastructure, smart city development, and heavy project planning.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="py-16 md:py-24 px-4 sm:px-6 relative z-10">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <span class="font-mono text-xs text-cyan uppercase tracking-[0.3em] block mb-2">ACADEMIC FOUNDATION</span>
+                <h2 class="font-cosmic font-bold text-3xl sm:text-5xl text-white">EDUCATION <span class="text-neon">& LOGS</span></h2>
+            </div>
+
+            <!-- Education Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                <div class="glass-card interactive-card p-8 reveal">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h4 class="font-tech font-bold text-xl text-white">M.Tech Green Energy</h4>
+                            <p class="font-mono text-[10px] text-silver mt-1">Pondicherry University (SAF Scholar)</p>
+                        </div>
+                        <span class="font-mono text-[10px] text-cyan bg-cyan/10 px-2 py-1 rounded border border-cyan/20">2025 - 2027</span>
+                    </div>
+                    <p class="font-sans text-sm leading-relaxed text-silver border-t border-white/10 pt-4">Advanced studies in renewable energy systems, solar and wind power technologies, sustainable energy solutions, and environmental engineering practices.</p>
+                </div>
+
+                <div class="glass-card interactive-card purple-hover p-8 reveal" style="transition-delay: 0.1s;">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h4 class="font-tech font-bold text-xl text-white">B.Tech Civil Engineering</h4>
+                            <p class="font-mono text-[10px] text-silver mt-1">Puducherry Technological Univ.</p>
+                        </div>
+                        <span class="font-mono text-[10px] text-purple bg-purple/10 px-2 py-1 rounded border border-purple/20">CGPA 8.06</span>
+                    </div>
+                    <p class="font-sans text-sm leading-relaxed text-silver border-t border-white/10 pt-4">Comprehensive education in structural engineering, construction management, infrastructure design, and sustainable building practices.</p>
+                </div>
+            </div>
+
+            <!-- Data Logs Grid (Workshops & Courses) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Workshops Terminal -->
+                <div class="glass-card p-8 reveal flex flex-col h-full">
+                    <h3 class="font-tech text-xl font-bold text-white mb-6 border-b border-white/10 pb-4 flex justify-between items-center shrink-0">
+                        <span>Workshops & Symposia</span>
+                        <i class="fa-solid fa-satellite-dish text-cyan"></i>
+                    </h3>
+                    <div class="space-y-2 h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                        <div class="list-hover-item p-3 rounded-lg border-l-2 border-cyan/50">
+                            <span class="font-mono text-[9px] text-cyan block mb-1">Jan 5-9, 2026 | Sathyabama Inst</span>
+                            <p class="font-sans text-sm text-silver">Sustainable Technologies For Waste Valorization</p>
+                        </div>
+                        <div class="list-hover-item p-3 rounded-lg border-l-2 border-purple/50">
+                            <span class="font-mono text-[9px] text-purple block mb-1">Jan 3, 2026 | SHAASTRA, IIT Madras</span>
+                            <p class="font-sans text-sm text-silver">EV 2-Wheeler Assembly Workshop</p>
+                        </div>
+                        <div class="list-hover-item p-3 rounded-lg border-l-2 border-cyan/50">
+                            <span class="font-mono text-[9px] text-cyan block mb-1">Jan 2, 2026 | SHAASTRA, IIT Madras</span>
+                            <p class="font-sans text-sm text-silver">AI In Marketing</p>
+                        </div>
+                        <div class="list-hover-item p-3 rounded-lg border-l-2 border-purple/50">
+                            <span class="font-mono text-[9px] text-purple block mb-1">Nov 3-7, 2025 | PU & NIT Rourkela</span>
+                            <p class="font-sans text-sm text-silver">Drone Technology Towards Sustainability</p>
+                        </div>
+                        <div class="list-hover-item p-3 rounded-lg border-l-2 border-cyan/50">
+                            <span class="font-mono text-[9px] text-cyan block mb-1">Oct 31, 2025 | Pondicherry Univ</span>
+                            <p class="font-sans text-sm text-silver">Entrepreneurship in Hydrogen Electrolyzers</p>
+                        </div>
+                        <div class="list-hover-item p-3 rounded-lg border-l-2 border-purple/50">
+                            <span class="font-mono text-[9px] text-purple block mb-1">Sep-Oct 2025 | Pondicherry Univ</span>
+                            <p class="font-sans text-sm text-silver">ICEWSE 2025 Conference</p>
+                        </div>
+                        <div class="list-hover-item p-3 rounded-lg border-l-2 border-cyan/50">
+                            <span class="font-mono text-[9px] text-cyan block mb-1">Aug 8, 2025 | Pondicherry Univ</span>
+                            <p class="font-sans text-sm text-silver">Additive Manufacturing Sustainability</p>
+                        </div>
+                        <div class="list-hover-item p-3 rounded-lg border-l-2 border-purple/50">
+                            <span class="font-mono text-[9px] text-purple block mb-1">Jul 12-13, 2025 | Indoi Foundation</span>
+                            <p class="font-sans text-sm text-silver">Leadership, Politics, and Governance</p>
+                        </div>
+                        <div class="list-hover-item p-3 rounded-lg border-l-2 border-cyan/50">
+                            <span class="font-mono text-[9px] text-cyan block mb-1">May 8, 2025 | PTU</span>
+                            <p class="font-sans text-sm text-silver">Technical Seminar on Coastal & Offshore Structures</p>
+                        </div>
+                        <div class="list-hover-item p-3 rounded-lg border-l-2 border-purple/50">
+                            <span class="font-mono text-[9px] text-purple block mb-1">Aug-Nov 2024 | CII & EATON</span>
+                            <p class="font-sans text-sm text-silver">Garnishing Talent Program</p>
+                        </div>
+                        <div class="list-hover-item p-3 rounded-lg border-l-2 border-cyan/50">
+                            <span class="font-mono text-[9px] text-cyan block mb-1">Mar 1, 2023 | NIT Karaikal</span>
+                            <p class="font-sans text-sm text-silver">Amazon Web Services (AWS)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certifications -->
+                <div class="glass-card p-8 reveal flex flex-col h-full" style="transition-delay: 0.2s;">
+                    <h3 class="font-tech text-xl font-bold text-white mb-6 border-b border-white/10 pb-4 flex justify-between items-center shrink-0">
+                        <span>Course Certifications</span>
+                        <i class="fa-solid fa-certificate text-purple"></i>
+                    </h3>
+                    <div class="flex flex-col gap-3 h-[400px] pr-2">
+                        <div class="list-hover-item flex-1 flex justify-between items-center p-4 rounded-lg border border-white/5 bg-white/5">
+                            <span class="font-sans text-sm text-white font-medium">Digital Marketing Fundamentals</span>
+                            <span class="font-mono text-[9px] text-purple bg-purple/10 px-2 py-1 rounded">Google</span>
+                        </div>
+                        <div class="list-hover-item flex-1 flex justify-between items-center p-4 rounded-lg border border-white/5 bg-white/5">
+                            <span class="font-sans text-sm text-white font-medium">Intro to Personal Branding</span>
+                            <span class="font-mono text-[9px] text-cyan bg-cyan/10 px-2 py-1 rounded">UVA</span>
+                        </div>
+                        <div class="list-hover-item flex-1 flex justify-between items-center p-4 rounded-lg border border-white/5 bg-white/5">
+                            <span class="font-sans text-sm text-white font-medium">New Models of Business in Society</span>
+                            <span class="font-mono text-[9px] text-purple bg-purple/10 px-2 py-1 rounded">UVA</span>
+                        </div>
+                        <div class="list-hover-item flex-1 flex justify-between items-center p-4 rounded-lg border border-white/5 bg-white/5">
+                            <span class="font-sans text-sm text-white font-medium">Introduction to Philosophy</span>
+                            <span class="font-mono text-[9px] text-cyan bg-cyan/10 px-2 py-1 rounded">U. Edinburgh</span>
+                        </div>
+                        <div class="list-hover-item flex-1 flex justify-between items-center p-4 rounded-lg border border-white/5 bg-white/5">
+                            <span class="font-sans text-sm text-white font-medium">HTML Fundamentals</span>
+                            <span class="font-mono text-[9px] text-purple bg-purple/10 px-2 py-1 rounded">Sololearn</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: Academic Research (Crucial for Students) -->
+    <section id="research" class="py-16 md:py-24 px-4 sm:px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <span class="font-mono text-xs text-purple uppercase tracking-[0.3em] block mb-2">APPLIED KNOWLEDGE</span>
+                <h2 class="font-cosmic font-bold text-3xl sm:text-5xl text-white">ACADEMIC <span class="text-plasma">RESEARCH</span></h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Capstone 1 -->
+                <div class="glass-card interactive-card p-8 reveal">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-full">
+                            <span class="font-mono text-[10px] text-cyan tracking-widest uppercase block mb-2">B.Tech Thesis • PTU</span>
+                            <h4 class="font-tech font-bold text-xl text-white mb-2 leading-tight">Removal of Turbidity in Raw Water Using Plant-Based Natural Coagulants</h4>
+                        </div>
+                    </div>
+                    <p class="font-sans text-sm leading-relaxed text-silver mb-6">Evaluated the effectiveness of plant-based natural coagulants in removing turbidity from synthetic raw water under controlled laboratory conditions. Optimized key parameters (dosage, mixing speed, settling time, and pH) to support sustainable, low-cost water treatment solutions for rural and emergency applications.</p>
+                    <div class="flex gap-2 flex-wrap">
+                        <span class="font-mono text-[9px] text-cyan bg-cyan/10 px-2 py-1 rounded border border-cyan/20">Water Treatment</span>
+                        <span class="font-mono text-[9px] text-cyan bg-cyan/10 px-2 py-1 rounded border border-cyan/20">Eco-Tech</span>
+                    </div>
+                </div>
+
+                <!-- Capstone 2 -->
+                <div class="glass-card interactive-card purple-hover p-8 reveal" style="transition-delay: 0.1s;">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-full">
+                            <span class="font-mono text-[10px] text-purple tracking-widest uppercase block mb-2">NLCEST EXPO 2026 • Pondicherry Univ</span>
+                            <h4 class="font-tech font-bold text-xl text-white mb-2 leading-tight">Sustainability Analysis and Feedback Engine (S.A.F.E)</h4>
+                        </div>
+                    </div>
+                    <p class="font-sans text-sm leading-relaxed text-silver mb-6">S.A.F.E. is a browser-based sustainability assessment platform engineered to measure a person’s environmental impact directly from their daily household choices, encouraging actionable, data-driven eco-conscious habits.</p>
+                    <div class="flex gap-2 flex-wrap">
+                        <span class="font-mono text-[9px] text-purple bg-purple/10 px-2 py-1 rounded border border-purple/20">Web Platform</span>
+                        <span class="font-mono text-[9px] text-purple bg-purple/10 px-2 py-1 rounded border border-purple/20">Sustainability</span>
+                    </div>
+                </div>
+
+                <!-- Capstone 3: Ongoing IITM Research -->
+                <div class="glass-card interactive-card p-8 reveal" style="transition-delay: 0.2s;">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-full">
+                            <span class="font-mono text-[10px] text-cyan tracking-widest uppercase block mb-2">Energy Consortium • IIT Madras <span class="text-purple ml-1 animate-pulse font-bold">[ONGOING]</span></span>
+                            <h4 class="font-tech font-bold text-xl text-white mb-2 leading-tight">Hydrogen Storage in Salt Caverns</h4>
+                        </div>
+                    </div>
+                    <p class="font-sans text-sm leading-relaxed text-silver mb-6">Conducting comprehensive technical analysis on Hydrogen Storage in salt caverns in comparison with methane. Evaluating thermodynamic properties and modeling feasibility for large-scale sustainable energy infrastructure.</p>
+                    <div class="flex gap-2 flex-wrap">
+                        <span class="font-mono text-[9px] text-cyan bg-cyan/10 px-2 py-1 rounded border border-cyan/20">Thermodynamics</span>
+                        <span class="font-mono text-[9px] text-cyan bg-cyan/10 px-2 py-1 rounded border border-cyan/20">Clean Energy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="py-16 md:py-24 px-4 sm:px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <span class="font-mono text-xs text-cyan uppercase tracking-[0.3em] block mb-2">CREATIVE VECTORS</span>
+                <h2 class="font-cosmic font-bold text-3xl sm:text-5xl text-white">DESIGN <span class="text-neon">MODULES</span></h2>
+            </div>
+            
+            <!-- Tech Stack Tags -->
+            <div class="flex flex-wrap justify-center gap-3 mb-16 reveal">
+                <span class="glass-card px-4 py-2 font-mono text-[10px] text-silver border-cyan/20">AutoCAD</span>
+                <span class="glass-card px-4 py-2 font-mono text-[10px] text-silver border-purple/20">Figma</span>
+                <span class="glass-card px-4 py-2 font-mono text-[10px] text-silver border-cyan/20">Canva</span>
+                <span class="glass-card px-4 py-2 font-mono text-[10px] text-silver border-purple/20">Inkscape</span>
+                <span class="glass-card px-4 py-2 font-mono text-[10px] text-silver border-cyan/20">Affinity Des.</span>
+                <span class="glass-card px-4 py-2 font-mono text-[10px] text-silver border-purple/20">SketchUP</span>
+                <span class="glass-card px-4 py-2 font-mono text-[10px] text-silver border-cyan/20">Typography</span>
+                <span class="glass-card px-4 py-2 font-mono text-[10px] text-silver border-purple/20">Branding</span>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Module Items -->
+                <a href="https://www.behance.net/harivarshan" target="_blank" class="glass-card interactive-card p-6 flex justify-between items-center group reveal">
+                    <div>
+                        <h4 class="font-tech font-bold text-white text-lg group-hover:text-cyan transition-colors">Logo Design</h4>
+                        <p class="font-mono text-[10px] text-silver mt-1">Brand Identity Systems</p>
+                    </div>
+                    <i class="fa-solid fa-shapes text-2xl text-cyan card-icon"></i>
+                </a>
+                <a href="https://www.behance.net/harivarshan" target="_blank" class="glass-card interactive-card purple-hover p-6 flex justify-between items-center group reveal" style="transition-delay: 0.1s;">
+                    <div>
+                        <h4 class="font-tech font-bold text-white text-lg group-hover:text-purple transition-colors">UI/UX Design</h4>
+                        <p class="font-mono text-[10px] text-silver mt-1">Digital Prototyping</p>
+                    </div>
+                    <i class="fa-solid fa-mobile-screen-button text-2xl text-purple card-icon"></i>
+                </a>
+                <a href="https://www.behance.net/harivarshan" target="_blank" class="glass-card interactive-card p-6 flex justify-between items-center group reveal" style="transition-delay: 0.2s;">
+                    <div>
+                        <h4 class="font-tech font-bold text-white text-lg group-hover:text-cyan transition-colors">3D Modeling</h4>
+                        <p class="font-mono text-[10px] text-silver mt-1">Spatial Visualization</p>
+                    </div>
+                    <i class="fa-solid fa-cube text-2xl text-cyan card-icon"></i>
+                </a>
+                <a href="https://www.behance.net/harivarshan" target="_blank" class="glass-card interactive-card purple-hover p-6 flex justify-between items-center group reveal">
+                    <div>
+                        <h4 class="font-tech font-bold text-white text-lg group-hover:text-purple transition-colors">Branding</h4>
+                        <p class="font-mono text-[10px] text-silver mt-1">Complete Identity Systems</p>
+                    </div>
+                    <i class="fa-solid fa-fingerprint text-2xl text-purple card-icon"></i>
+                </a>
+                <a href="https://www.behance.net/harivarshan" target="_blank" class="glass-card interactive-card p-6 flex justify-between items-center group reveal" style="transition-delay: 0.1s;">
+                    <div>
+                        <h4 class="font-tech font-bold text-white text-lg group-hover:text-cyan transition-colors">Web Design</h4>
+                        <p class="font-mono text-[10px] text-silver mt-1">Responsive Interfaces</p>
+                    </div>
+                    <i class="fa-solid fa-code text-2xl text-cyan card-icon"></i>
+                </a>
+                <a href="https://www.behance.net/harivarshan" target="_blank" class="glass-card interactive-card purple-hover p-6 flex justify-between items-center group reveal" style="transition-delay: 0.2s;">
+                    <div>
+                        <h4 class="font-tech font-bold text-white text-lg group-hover:text-purple transition-colors">Video Editing</h4>
+                        <p class="font-mono text-[10px] text-silver mt-1">Motion Graphics</p>
+                    </div>
+                    <i class="fa-solid fa-video text-2xl text-purple card-icon"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 px-4 sm:px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <span class="font-mono text-xs text-purple uppercase tracking-[0.3em] block mb-2">METRICS & RECOGNITION</span>
+                <h2 class="font-cosmic font-bold text-3xl sm:text-5xl text-white">HONOURS & <span class="text-plasma">CREDENTIALS</span></h2>
+            </div>
+
+            <!-- Metrics -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+                <div class="glass-card interactive-card text-center p-8 reveal">
+                    <span class="font-cosmic font-extrabold text-3xl md:text-5xl text-neon block mb-2">200+</span>
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-silver">Design Vectors</span>
+                </div>
+                <div class="glass-card interactive-card purple-hover text-center p-8 reveal" style="transition-delay: 0.1s;">
+                    <span class="font-cosmic font-extrabold text-3xl md:text-5xl text-plasma block mb-2">75+</span>
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-silver">Global Targets</span>
+                </div>
+                <div class="glass-card interactive-card text-center p-8 reveal" style="transition-delay: 0.2s;">
+                    <span class="font-cosmic font-extrabold text-3xl md:text-5xl text-neon block mb-2">Top</span>
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-silver">GO4Youth 2026</span>
+                </div>
+                <div class="glass-card interactive-card purple-hover text-center p-8 reveal" style="transition-delay: 0.3s;">
+                    <span class="font-cosmic font-extrabold text-3xl md:text-5xl text-plasma block mb-2">99%</span>
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-silver">Client Rating</span>
+                </div>
+            </div>
+
+            <!-- Achievement Image Gallery -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Image Cards -->
+                <div class="glass-card interactive-card img-card p-0 h-64 reveal">
+                    <img src="/Images/DSC_0654.jpg" alt="1st Place Startup Spark" class="w-full h-full object-cover grayscale" onerror="this.src='https://placehold.co/600x400/030305/00f0ff?text=Startup+Spark'">
+                    <div class="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/80 to-transparent p-6">
+                        <h4 class="font-tech font-bold text-white text-lg">1st Place Startup Spark</h4>
+                        <p class="font-mono text-[10px] text-cyan mt-1 uppercase tracking-wider">JIGYASA 2025</p>
+                    </div>
+                </div>
+
+                <div class="glass-card interactive-card purple-hover img-card p-0 h-64 reveal" style="transition-delay: 0.1s;">
+                    <img src="/Images/IMG_20230505_154925.jpg" alt="1st Place Poster Designing" class="w-full h-full object-cover grayscale" onerror="this.src='https://placehold.co/600x400/030305/9d4edd?text=Poster+Design'">
+                    <div class="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/80 to-transparent p-6">
+                        <h4 class="font-tech font-bold text-white text-lg">1st Place Poster Design</h4>
+                        <p class="font-mono text-[10px] text-purple mt-1 uppercase tracking-wider">Academic Design Club</p>
+                    </div>
+                </div>
+
+                <div class="glass-card interactive-card img-card p-0 h-64 reveal" style="transition-delay: 0.2s;">
+                    <img src="/Images/3rd.jpeg" alt="3rd Place Logo Contest" class="w-full h-full object-cover grayscale" onerror="this.src='https://placehold.co/600x400/030305/00f0ff?text=Logo+Contest'">
+                    <div class="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/80 to-transparent p-6">
+                        <h4 class="font-tech font-bold text-white text-lg">3rd Place Logo Contest</h4>
+                        <p class="font-mono text-[10px] text-cyan mt-1 uppercase tracking-wider">JIGYASA 2025</p>
+                    </div>
+                </div>
+
+                <div class="glass-card interactive-card purple-hover img-card p-0 h-64 reveal">
+                    <img src="/Images/gcc.jpeg" alt="Gender Champion" class="w-full h-full object-cover grayscale" onerror="this.src='https://placehold.co/600x400/030305/9d4edd?text=Gender+Champion'">
+                    <div class="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/80 to-transparent p-6">
+                        <h4 class="font-tech font-bold text-white text-lg">Gender Champion 24-25</h4>
+                        <p class="font-mono text-[10px] text-purple mt-1 uppercase tracking-wider">MHRD Protocol</p>
+                    </div>
+                </div>
+
+                <div class="glass-card interactive-card img-card p-0 h-64 reveal" style="transition-delay: 0.1s;">
+                    <img src="/Images/IMG_6299.JPG" alt="Secretary Civil Engineering" class="w-full h-full object-cover grayscale" onerror="this.src='https://placehold.co/600x400/030305/00f0ff?text=Civil+Secretary'">
+                    <div class="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/80 to-transparent p-6">
+                        <h4 class="font-tech font-bold text-white text-lg">Civil Dept Secretary</h4>
+                        <p class="font-mono text-[10px] text-cyan mt-1 uppercase tracking-wider">EDIFICE'25</p>
+                    </div>
+                </div>
+
+                <div class="glass-card interactive-card purple-hover img-card p-0 h-64 reveal" style="transition-delay: 0.2s;">
+                    <img src="/Images/Canva 1000 Design Milestone Badge.jpg" alt="Canva Milestone" class="w-full h-full object-cover grayscale" onerror="this.src='https://placehold.co/600x400/030305/9d4edd?text=Canva+Badge'">
+                    <div class="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/80 to-transparent p-6">
+                        <h4 class="font-tech font-bold text-white text-lg">Design Milestone</h4>
+                        <p class="font-mono text-[10px] text-purple mt-1 uppercase tracking-wider">1000+ Designs Vector</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: Resume / CV CTA -->
+    <section class="py-16 md:py-24 px-4 sm:px-6 relative z-10 border-t border-white/5 bg-gradient-to-b from-transparent to-cyan/5">
+        <div class="max-w-4xl mx-auto text-center reveal glass-card p-8 sm:p-12 relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-cyan/20 blur-[50px] rounded-full pointer-events-none"></div>
+            <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-purple/20 blur-[50px] rounded-full pointer-events-none"></div>
+            
+            <div class="relative z-10">
+                <span class="font-mono text-xs text-cyan uppercase tracking-[0.3em] block mb-4">READY FOR DEPLOYMENT</span>
+                <h2 class="font-cosmic font-bold text-3xl sm:text-4xl text-white mb-6">Download Full <span class="text-neon">Curriculum Vitae</span></h2>
+                <p class="font-sans text-silver text-sm max-w-xl mx-auto mb-8">Access detailed academic transcripts, comprehensive project logs, and full technical proficiencies.</p>
+                <a href="#" onclick="alert('Please update the href attribute with your PDF link.'); return false;" class="inline-flex items-center gap-3 px-8 py-4 bg-void border border-cyan/50 hover:bg-cyan/10 hover:border-cyan text-white font-tech font-bold rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,255,163,0.3)] hover:-translate-y-1">
+                    <i class="fa-solid fa-file-pdf text-cyan"></i> Initialize PDF Download
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 px-6 bg-[#030305]/80 backdrop-blur-md border-t border-white/5 relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <span class="font-cosmic font-bold text-lg text-white tracking-widest">H K A</span>
+                <span class="hidden md:block w-px h-4 bg-white/20"></span>
+                <span class="font-mono text-[9px] uppercase tracking-[0.3em] text-cyan">A person trying to do better.</span>
+            </div>
+            
+            <p class="font-mono text-[9px] text-silver/40">© 2026 // Engineered with Structural Logic & Kinetic Flow.</p>
+            
+            <div class="flex items-center gap-5">
+                <a href="https://www.linkedin.com/in/theharivarshan/" target="_blank" class="text-silver hover:text-cyan transition-colors interactive">
+                    <i class="fa-brands fa-linkedin-in text-lg"></i>
+                </a>
+                <a href="https://www.behance.net/harivarshan" target="_blank" class="text-silver hover:text-purple transition-colors interactive">
+                    <i class="fa-brands fa-behance text-lg"></i>
+                </a>
+                <a href="mailto:harivarshan.ka@example.com" class="text-silver hover:text-cyan transition-colors interactive">
+                    <i class="fa-regular fa-envelope text-lg"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Loader Fate
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            const introName = document.getElementById('introName');
+            const introSub = document.getElementById('introSub');
+            
+            setTimeout(() => {
+                introName.classList.remove('opacity-0', 'scale-95');
+                introSub.classList.remove('opacity-0');
+            }, 2500);
+
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                loader.style.transform = 'translateY(-20px)';
+                setTimeout(() => loader.style.display = 'none', 1000);
+            }, 4000);
+        });
+
+        // Custom Cursor Logic
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let ringX = mouseX;
+        let ringY = mouseY;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            dot.style.left = `${mouseX}px`;
+            dot.style.top = `${mouseY}px`;
+        });
+
+        function animateCursor() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            ring.style.left = `${ringX}px`;
+            ring.style.top = `${ringY}px`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Typewriter Animation Logic
+        const typeWriterElement = document.getElementById('typewriter-text');
+        const textArray = [
+            "Civil Eng & Green Energy", 
+            "Design & Brand Architect", 
+            "Eco-Tech M.Tech Scholar"
+        ];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeEffect() {
+            const currentText = textArray[textIndex];
+            
+            if (isDeleting) {
+                typeWriterElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typeWriterElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 40 : 80;
+
+            if (!isDeleting && charIndex === currentText.length) {
+                typeSpeed = 2500; // Pause at the end of the phrase
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % textArray.length;
+                typeSpeed = 400; // Pause before typing the next phrase
+            }
+
+            setTimeout(typeEffect, typeSpeed);
+        }
+        // Start typing after a short delay
+        setTimeout(typeEffect, 2500);
+
+        // Intersection Observer
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        reveals.forEach(el => observer.observe(el));
+
+        // THREE.JS - Architectural Wave Grid (Civil + Green Energy Hybrid)
+        const canvas = document.getElementById('kinetic-landscape');
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x030305, 0.002);
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 2000);
+        camera.position.z = 250;
+        camera.position.y = 120;
+        camera.lookAt(0, 0, 0);
+
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        // Wireframe Terrain Grid (Infrastructure)
+        const gridGeometry = new THREE.PlaneGeometry(1200, 1200, 45, 45);
+        gridGeometry.rotateX(-Math.PI / 2);
+        
+        const wireframeMaterial = new THREE.MeshBasicMaterial({
+            color: 0x00ffa3, /* Changed to Emerald */
+            wireframe: true,
+            transparent: true,
+            opacity: 0.06
+        });
+
+        const grid = new THREE.Mesh(gridGeometry, wireframeMaterial);
+        scene.add(grid);
+
+        // Ascending Energy Particles
+        const particleCount = 500;
+        const particleGeo = new THREE.BufferGeometry();
+        const particlePos = new Float32Array(particleCount * 3);
+        const particleSpeeds = new Float32Array(particleCount);
+
+        for(let i=0; i<particleCount; i++) {
+            particlePos[i*3] = (Math.random() - 0.5) * 1000;
+            particlePos[i*3+1] = Math.random() * 400; // y
+            particlePos[i*3+2] = (Math.random() - 0.5) * 1000;
+            particleSpeeds[i] = Math.random() * 0.5 + 0.2;
+        }
+
+        particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
+        
+        const particleMat = new THREE.PointsMaterial({
+            color: 0xffd700, /* Changed to Gold */
+            size: 2.5,
+            transparent: true,
+            opacity: 0.5,
+            blending: THREE.AdditiveBlending
+        });
+
+        const particles = new THREE.Points(particleGeo, particleMat);
+        scene.add(particles);
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Mouse Parallax mapping
+        let targetCamX = 0;
+        let targetCamY = 120;
+        window.addEventListener('mousemove', (e) => {
+            const normX = (e.clientX / window.innerWidth) * 2 - 1;
+            const normY = -(e.clientY / window.innerHeight) * 2 + 1;
+            targetCamX = normX * 50;
+            targetCamY = 120 + (normY * 20);
+        });
+
+        // Animation Loop
+        let time = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+
+            camera.position.x += (targetCamX - camera.position.x) * 0.05;
+            camera.position.y += (targetCamY - camera.position.y) * 0.05;
+            camera.lookAt(0, 0, 0);
+
+            // Flow grid like kinetic energy
+            const posAttr = grid.geometry.attributes.position;
+            for(let i=0; i<posAttr.count; i++) {
+                const x = posAttr.getX(i);
+                const z = posAttr.getZ(i);
+                
+                // Fluid Math combining sine waves
+                const y = Math.sin(x * 0.005 + time) * 20 + Math.cos(z * 0.005 + time) * 20;
+                posAttr.setY(i, y);
+            }
+            posAttr.needsUpdate = true;
+
+            // Float particles upwards
+            const pPosAttr = particles.geometry.attributes.position;
+            for(let i=0; i<particleCount; i++) {
+                let py = pPosAttr.getY(i);
+                py += particleSpeeds[i];
+                if(py > 300) py = -50; 
+                pPosAttr.setY(i, py);
+            }
+            pPosAttr.needsUpdate = true;
+
+            time += 0.015;
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
